@@ -2,12 +2,16 @@ require('colors');
 const dotenv = require('dotenv');
 const express = require('express');
 
+const connectDB = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
+
+// Connect to database
+connectDB();
 
 app.use(errorHandler);
 
