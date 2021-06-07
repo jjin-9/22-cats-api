@@ -1,7 +1,9 @@
 require('colors');
 const dotenv = require('dotenv');
 const express = require('express');
+const fileupload = require('express-fileupload');
 const morgan = require('morgan');
+const path = require('path');
 
 const connectDB = require('./config/db');
 const catRouter = require('./routers/cats');
@@ -22,6 +24,12 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// File upload
+app.use(fileupload());
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
 app.use('/api/v1/cats', catRouter);
