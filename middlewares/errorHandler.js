@@ -30,3 +30,5 @@ const errorHandler = (err, req, res, next) => {
     error: error.message || 'Server error'
   });
 };
+
+module.exports = errorHandler;
