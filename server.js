@@ -1,8 +1,10 @@
 require('colors');
 const dotenv = require('dotenv');
 const express = require('express');
+const morgan = require('morgan');
 
 const connectDB = require('./config/db');
+const catRouter = require('./routers/cats');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -18,8 +20,11 @@ app.use(express.json());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgon('dev'));
+  app.use(morgan('dev'));
 }
+
+// Mount routers
+app.use('/api/v1/cats', catRouter);
 
 app.use(errorHandler);
 

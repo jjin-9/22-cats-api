@@ -10,17 +10,17 @@ const CatSchema = new mongoose.Schema({
   },
   age: {
     type: Number,
-    require: [true, 'Please add an age'],
+    required: [true, 'Please add age'],
     min: [0, 'Age must be at least 0']
   },
   dob: {
     type: Date,
-    required: true
+    required: [true, 'Please add date of birth']
   },
-  sex: {
+  gender: {
     type: String,
     enum: ['M', 'F'],
-    required: true
+    required: [true, 'Please add gender']
   },
   photo: {
     type: String,
