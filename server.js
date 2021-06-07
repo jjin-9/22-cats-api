@@ -13,6 +13,9 @@ dotenv.config({ path: './config/config.env' });
 // Connect to database
 connectDB();
 
+// Body parser
+app.use(express.json());
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
