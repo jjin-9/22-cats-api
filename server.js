@@ -17,3 +17,9 @@ const server = app.listen(PORT, () => {
     `Server running in ${process.env.NODE_ENV} mode on ${PORT}`.yellow
   );
 });
+
+process.on('unhandledRejection', (err) => {
+  console.log(`Error: ${err.message}`);
+  // Close server and exit process
+  server.close(() => process.exit());
+});
