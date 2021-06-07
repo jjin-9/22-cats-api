@@ -16,6 +16,11 @@ connectDB();
 // Body parser
 app.use(express.json());
 
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgon('dev'));
+}
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
