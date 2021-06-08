@@ -87,15 +87,32 @@ exports.uploadCatImage = asyncHandler(async (req, res, next) => {
   // Save the image to the server and db (stored as path in db)
   file.mv(path.join(process.env.FILE_UPLOAD_PATH, file.name), async (err) => {
     if (err) {
-      console.err(err);
-      return new ErrorResponse('Problem with file upload', 500);
+      console.error(err);
+      return next(new ErrorResponse('Problem with file upload', 500));
     }
 
     await Cat.findByIdAndUpdate(req.params.id, { photo: file.name });
-  });
 
-  res.status(201).send({
-    success: true,
-    data: cat
+    res.status(201).send({
+      success: true,
+      data: cat
+    });
   });
+});
+
+// @desc      Upload a cat image
+// @route     Get /api/v1/cats/:id/photo
+// @access    Public
+exports.getCatImage = asyncHandler(async (req, res, next) => {
+  const cat = await Cat.findById(req.params.id);
+
+  if (!cat) {
+    return next(
+      new ErrorResponse(`Cat not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  res
+    .status(200)
+    .sendFile(path.join(__dirname, '..', 'public', 'uploadImages', cat.photo));
 });
