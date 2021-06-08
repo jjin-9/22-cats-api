@@ -1,3 +1,4 @@
 /node_modules
 play.js
 /public/uploadImages
+/config/config.env
