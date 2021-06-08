@@ -10,7 +10,6 @@ const CatSchema = new mongoose.Schema({
   },
   age: {
     type: Number,
-    required: [true, 'Please add age'],
     min: [0, 'Age must be at least 0']
   },
   dob: {
@@ -30,6 +29,31 @@ const CatSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+});
+
+const _getAge = (dob) => {
+  // subtract current year from birth year
+  const currFullDate = new Date();
+  const currYear = currFullDate.getFullYear();
+  const currMonth = currFullDate.getMonth();
+  const currDate = currFullDate.getDate();
+
+  let age = currYear - dob.getFullYear();
+
+  // subtract 1 if birth date is after current date
+  if (
+    currMonth < dob.getMonth() ||
+    (currMonth === dob.getMonth() && currDate < dob.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+};
+
+CatSchema.pre('save', function (next) {
+  this.age = _getAge(this.dob);
+  next();
 });
 
 module.exports = mongoose.model('Cat', CatSchema);
