@@ -25,6 +25,10 @@ const CatSchema = new mongoose.Schema({
   photo: {
     type: String,
     default: 'no-photo.jpg'
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 
