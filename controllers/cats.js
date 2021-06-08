@@ -50,7 +50,7 @@ exports.createCat = asyncHandler(async (req, res, next) => {
 // @route     Post /api/v1/cats/:id/photo
 // @access    Private
 exports.uploadCatImage = asyncHandler(async (req, res, next) => {
-  const cat = await Cat.findById(req.params.id);
+  let cat = await Cat.findById(req.params.id);
 
   if (!cat) {
     return next(
@@ -81,8 +81,10 @@ exports.uploadCatImage = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Create custome filename
-  file.name = `${cat.name}-${cat._id}${path.parse(file.name).ext}`;
+  // Create unique custom filename
+  file.name = `${cat.name}-${cat._id}-${Date.parse(new Date())}${
+    path.parse(file.name).ext
+  }`;
 
   // Save the image to the server and db (stored as path in db)
   file.mv(path.join(process.env.FILE_UPLOAD_PATH, file.name), async (err) => {
@@ -91,7 +93,13 @@ exports.uploadCatImage = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse('Problem with file upload', 500));
     }
 
-    await Cat.findByIdAndUpdate(req.params.id, { photo: file.name });
+    cat = await Cat.findByIdAndUpdate(
+      req.params.id,
+      { photo: file.name },
+      {
+        new: true
+      }
+    );
 
     res.status(201).send({
       success: true,
