@@ -82,7 +82,7 @@ exports.uploadCatImage = asyncHandler(async (req, res, next) => {
   }
 
   // Create unique custom filename
-  file.name = `${cat.name}-${cat._id}-${Date.parse(new Date())}${
+  file.name = `${cat.name}_${cat._id}_${Date.parse(new Date())}${
     path.parse(file.name).ext
   }`;
 
