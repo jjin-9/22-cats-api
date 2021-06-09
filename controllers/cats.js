@@ -62,8 +62,6 @@ exports.uploadCatImage = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Please upload an image', 400));
   }
 
-  console.log(req.files);
-
   const { file } = req.files;
 
   // Make sure that the image is a photo
@@ -93,13 +91,9 @@ exports.uploadCatImage = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse('Problem with file upload', 500));
     }
 
-    cat = await Cat.findByIdAndUpdate(
-      req.params.id,
-      { photo: file.name },
-      {
-        new: true
-      }
-    );
+    cat.imageName = file.name;
+
+    cat = await cat.save();
 
     res.status(201).send({
       success: true,
@@ -122,5 +116,5 @@ exports.getCatImage = asyncHandler(async (req, res, next) => {
 
   res
     .status(200)
-    .sendFile(path.join(__dirname, '..', 'public', 'uploadImages', cat.photo));
+    .sendFile(path.join(__dirname, '..', 'public', 'images', cat.photo));
 });
