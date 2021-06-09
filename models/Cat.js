@@ -21,10 +21,12 @@ const CatSchema = new mongoose.Schema({
     enum: ['M', 'F'],
     required: [true, 'Please add gender']
   },
-  photo: {
+  imageName: {
     type: String,
-    default: 'no-photo.jpg'
+    default: 'no-photo.jpg',
+    select: false
   },
+  image: 'String',
   createdAt: {
     type: Date,
     default: Date.now
@@ -51,8 +53,13 @@ const _getAge = (dob) => {
   return age;
 };
 
+const _getImageUrl = (filename) => {
+  return `http://localhost:5000/images/${filename}`;
+};
+
 CatSchema.pre('save', function (next) {
   this.age = _getAge(this.dob);
+  this.image = _getImageUrl(this.imageName);
   next();
 });
 
