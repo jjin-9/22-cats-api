@@ -2,3 +2,5 @@
 play.js
 /public/uploadImages
 /config/config.env
+/data
+seeder.js
