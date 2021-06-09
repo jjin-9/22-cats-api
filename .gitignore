@@ -1,6 +1,6 @@
 /node_modules
 play.js
-/public/uploadImages
+/public
 /config/config.env
 /data
 seeder.js
