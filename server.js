@@ -1,4 +1,5 @@
 require('colors');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const express = require('express');
 const fileupload = require('express-fileupload');
@@ -24,6 +25,9 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Enable CORS
+app.use(cors());
 
 // File upload
 app.use(fileupload());
