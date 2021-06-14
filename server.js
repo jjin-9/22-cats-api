@@ -8,6 +8,7 @@ const path = require('path');
 
 const connectDB = require('./config/db');
 const catRouter = require('./routers/cats');
+const authRouter = require('./routers/auth');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
 app.use('/api/v1/cats', catRouter);
+app.use('/api/v1/auth', authRouter);
 
 app.use(errorHandler);
 
