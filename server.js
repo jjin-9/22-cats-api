@@ -7,8 +7,9 @@ const morgan = require('morgan');
 const path = require('path');
 
 const connectDB = require('./config/db');
-const catRouter = require('./routers/cats');
 const authRouter = require('./routers/auth');
+const catRouter = require('./routers/cats');
+const photoRouter = require('./routers/photos');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -37,8 +38,9 @@ app.use(fileupload());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
-app.use('/api/v1/cats', catRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/cats', catRouter);
+app.use('/api/v1/photos', photoRouter);
 
 app.use(errorHandler);
 

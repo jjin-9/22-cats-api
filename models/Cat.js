@@ -5,8 +5,32 @@ const CatSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a name'],
     unique: true,
-    trime: true,
-    maxlength: [50, 'Name cannot be more than 50 characters']
+    trim: true,
+    maxlength: [50, 'Name cannot be more than 50 characters'],
+    enum: [
+      'Kong',
+      'E-Baek',
+      'Goni',
+      'Bom',
+      'Soi',
+      'Dori',
+      'Soo-Ri',
+      'Bong-Nam',
+      'Sam',
+      'Jum-Dol',
+      'Amber',
+      'Coco',
+      'Gi-Pheum',
+      'Sun-Duk',
+      'Yu-Sin',
+      'Hal-Bae',
+      'Phoo-Ni',
+      'Ae-Ong',
+      'Yomi',
+      'A-Ju-Si',
+      'Lovey',
+      'Gi-Jeok'
+    ]
   },
   age: {
     type: Number,
@@ -20,16 +44,6 @@ const CatSchema = new mongoose.Schema({
     type: String,
     enum: ['M', 'F'],
     required: [true, 'Please add gender']
-  },
-  imageName: {
-    type: String,
-    default: 'no-photo.jpg',
-    select: false
-  },
-  image: 'String',
-  createdAt: {
-    type: Date,
-    default: Date.now
   }
 });
 
@@ -53,13 +67,9 @@ const _getAge = (dob) => {
   return age;
 };
 
-const _getImageUrl = (filename) => {
-  return `http://localhost:5000/images/${filename}`;
-};
-
 CatSchema.pre('save', function (next) {
+  this.englishName;
   this.age = _getAge(this.dob);
-  this.image = _getImageUrl(this.imageName);
   next();
 });
 

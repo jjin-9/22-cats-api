@@ -1,5 +1,7 @@
 const express = require('express');
 
+const photoRouter = require('../routers/photos');
+
 const {
   getCats,
   getCat,
@@ -10,10 +12,11 @@ const {
 
 const router = express.Router();
 
+// Re-route into other resource routers
+router.use('/:catId/photos', photoRouter);
+
 router.route('/').get(getCats).post(createCat);
 
 router.route('/:id').get(getCat);
-
-router.route('/:id/photo').get(getCatImage).post(uploadCatImage);
 
 module.exports = router;
