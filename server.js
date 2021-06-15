@@ -6,6 +6,9 @@ const fileupload = require('express-fileupload');
 const morgan = require('morgan');
 const path = require('path');
 
+// Load env vars
+dotenv.config({ path: './config/config.env' });
+
 const connectDB = require('./config/db');
 const authRouter = require('./routers/auth');
 const catRouter = require('./routers/cats');
@@ -13,9 +16,6 @@ const photoRouter = require('./routers/photos');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
-
-// Load env vars
-dotenv.config({ path: './config/config.env' });
 
 // Connect to database
 connectDB();
