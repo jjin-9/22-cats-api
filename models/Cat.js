@@ -16,7 +16,7 @@ const CatSchema = new mongoose.Schema({
       'Dori',
       'Soo-Ri',
       'Bong-Nam',
-      'Sam',
+      'Sami',
       'Jum-Dol',
       'Amber',
       'Coco',
@@ -27,7 +27,7 @@ const CatSchema = new mongoose.Schema({
       'Phoo-Ni',
       'Ae-Ong',
       'Yomi',
-      'A-Ju-Si',
+      'Ah-Ju-Si',
       'Lovey',
       'Gi-Jeok'
     ]
