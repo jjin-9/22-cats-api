@@ -44,6 +44,10 @@ const CatSchema = new mongoose.Schema({
     type: String,
     enum: ['M', 'F'],
     required: [true, 'Please add gender']
+  },
+  image: {
+    type: String,
+    default: 'image_not_found.png'
   }
 });
 
