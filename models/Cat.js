@@ -47,7 +47,10 @@ const CatSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: 'image_not_found.png'
+    default: `${process.env.PROFILE_IMAGE_PATH.replace(
+      '{PORT}',
+      process.env.PORT
+    )}/image_not_found.png`
   }
 });
 
