@@ -67,3 +67,15 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
     });
   });
 });
+
+// @desc      Get All Photos
+// @route     Get /api/v1/photos
+// @access    Public
+exports.getPhotos = asyncHandler(async (req, res, next) => {
+  const photos = await Photo.find();
+
+  res.status(200).send({
+    success: true,
+    data: photos
+  });
+});
