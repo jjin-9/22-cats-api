@@ -8,11 +8,10 @@ const ErrorResponse = require('../utils/ErrorResponse');
 // @route     Get /api/v1/cats
 // @access    Public
 exports.getCats = asyncHandler(async (req, res, next) => {
-  const cats = await Cat.find();
-
   res.status(200).send({
     success: true,
-    data: cats
+    count: res.results.length,
+    data: res.results
   });
 });
 

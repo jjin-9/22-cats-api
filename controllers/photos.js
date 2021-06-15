@@ -76,6 +76,7 @@ exports.getPhotos = asyncHandler(async (req, res, next) => {
 
   res.status(200).send({
     success: true,
-    data: photos
+    count: res.results.length,
+    data: res.results
   });
 });
