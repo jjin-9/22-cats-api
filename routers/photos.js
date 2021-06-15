@@ -2,8 +2,10 @@ const express = require('express');
 
 const router = express.Router({ mergeParams: true });
 
-const { uploadPhoto } = require('../controllers/photos');
+const { uploadPhoto, getPhotos } = require('../controllers/photos');
 
-router.route('/').post(uploadPhoto);
+const { protect, authorize } = require('../middlewares/auth');
+
+router.route('/').get(getPhotos).post(protect, authorize('admin'), uploadPhoto);
 
 module.exports = router;
