@@ -5,8 +5,9 @@ This is an API for the 22 cats from Youtube.
 
 The API provides
 - each cat's information (this includes name, profile photo, etc)
+  - filtering and pagination are supported
 - all the photos of the cats
-- filtering and pagination to only get the results you want (for both cat's data and photos)
+  - filtering and pagination are supported
 - sign up, log in and reset password
 - photo upload for the cats 
 - access protection to some of the routes against not permissioned users (e.g., photo upload)
