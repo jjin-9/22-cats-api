@@ -1,58 +1,64 @@
 const mongoose = require('mongoose');
 
-const CatSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Please add a name'],
-    unique: true,
-    trim: true,
-    maxlength: [50, 'Name cannot be more than 50 characters'],
-    enum: [
-      'Kong',
-      'E-Baek',
-      'Goni',
-      'Bom',
-      'Soi',
-      'Dori',
-      'Soo-Ri',
-      'Bong-Nam',
-      'Sami',
-      'Jum-Dol',
-      'Amber',
-      'Coco',
-      'Gi-Pheum',
-      'Sun-Duk',
-      'Yu-Sin',
-      'Hal-Bae',
-      'Phoo-Ni',
-      'Ae-Ong',
-      'Yomi',
-      'Ah-Ju-Si',
-      'Lovey',
-      'Gi-Jeok'
-    ]
+const CatSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Please add a name'],
+      unique: true,
+      trim: true,
+      maxlength: [50, 'Name cannot be more than 50 characters'],
+      enum: [
+        'Kong',
+        'E-Baek',
+        'Goni',
+        'Bom',
+        'Soi',
+        'Dori',
+        'Soo-Ri',
+        'Bong-Nam',
+        'Sami',
+        'Jum-Dol',
+        'Amber',
+        'Coco',
+        'Gi-Pheum',
+        'Sun-Duk',
+        'Yu-Sin',
+        'Hal-Bae',
+        'Phoo-Ni',
+        'Ae-Ong',
+        'Yomi',
+        'Ah-Ju-Si',
+        'Lovey',
+        'Gi-Jeok'
+      ]
+    },
+    age: {
+      type: Number,
+      min: [0, 'Age must be at least 0']
+    },
+    dob: {
+      type: Date,
+      required: [true, 'Please add date of birth']
+    },
+    gender: {
+      type: String,
+      enum: ['M', 'F'],
+      required: [true, 'Please add gender']
+    },
+    image: {
+      type: String,
+      default: `${process.env.PROFILE_IMAGE_PATH.replace(
+        '{PORT}',
+        process.env.PORT
+      )}/image_not_found.png`
+    }
   },
-  age: {
-    type: Number,
-    min: [0, 'Age must be at least 0']
-  },
-  dob: {
-    type: Date,
-    required: [true, 'Please add date of birth']
-  },
-  gender: {
-    type: String,
-    enum: ['M', 'F'],
-    required: [true, 'Please add gender']
-  },
-  image: {
-    type: String,
-    default: `${process.env.PROFILE_IMAGE_PATH.replace(
-      '{PORT}',
-      process.env.PORT
-    )}/image_not_found.png`
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
-});
+);
 
 const _getAge = (dob) => {
   // subtract current year from birth year
@@ -78,6 +84,12 @@ CatSchema.pre('save', function (next) {
   this.englishName;
   this.age = _getAge(this.dob);
   next();
+});
+
+CatSchema.virtual('photos', {
+  ref: 'Photo',
+  localField: '_id',
+  foreignField: 'cat'
 });
 
 module.exports = mongoose.model('Cat', CatSchema);
