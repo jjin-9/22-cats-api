@@ -7,8 +7,6 @@ const photoSchema = new mongoose.Schema({
     trim: true,
     default: 'default.jpg'
   },
-  // full path to the photo
-  fullName: String,
   // cat in the photo
   cat: {
     type: mongoose.Schema.ObjectId,
