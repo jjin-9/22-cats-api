@@ -11,10 +11,10 @@ const advancedQuery = (model, populate) => async (req, res, next) => {
   query = model.find(JSON.parse(stringifiedQuery));
 
   // Select fields
-  if (req.query.select) {
-    const fields = req.query.select.split(',').join(' ');
-    query = query.select(fields);
-  }
+  // if (req.query.select) {
+  //   const fields = req.query.select.split(',').join(' ');
+  //   query = query.select(fields);
+  // }
 
   // Sort
   if (req.query.sort) {
