@@ -56,8 +56,7 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
     }
 
     photo.name = file.name;
-    // TODO: don't hardcode it
-    photo.fullName = `http://localhost:5000/images/${file.name}`;
+    photo.fullName = `${process.env.IMAGE_PATH}/${file.name}`;
 
     await photo.save();
 
