@@ -11,9 +11,6 @@ const advancedQuery = require('../middlewares/advancedQuery');
 
 const router = express.Router();
 
-// Re-route into other resource routers
-router.use('/:catId/photos', photoRouter);
-
 router
   .route('/')
   .get(advancedQuery(Cat, 'photos'), getCats)

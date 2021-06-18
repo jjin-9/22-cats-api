@@ -2,20 +2,40 @@ const mongoose = require('mongoose');
 
 const photoSchema = new mongoose.Schema({
   // name of the photo
-  name: {
+  name: String,
+  url: String,
+  catName: {
     type: String,
     trim: true,
-    default: 'default.jpg'
-  },
-  // cat in the photo
-  cat: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Cat',
-    required: true
+    enum: [
+      'Kong',
+      'E-Baek',
+      'Goni',
+      'Bom',
+      'Soi',
+      'Dori',
+      'Soo-Ri',
+      'Bong-Nam',
+      'Sami',
+      'Jum-Dol',
+      'Amber',
+      'Coco',
+      'Gi-Pheum',
+      'Sun-Duk',
+      'Yu-Sin',
+      'Hal-Bae',
+      'Phoo-Ni',
+      'Ae-Ong',
+      'Yomi',
+      'Ah-Ju-Si',
+      'Lovey',
+      'Gi-Jeok'
+    ]
   },
   createAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    select: false
   }
 });
 

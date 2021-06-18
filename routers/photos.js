@@ -4,7 +4,7 @@ const Photo = require('../models/Photo');
 
 const advancedQuery = require('../middlewares/advancedQuery');
 
-const router = express.Router({ mergeParams: true });
+const router = express.Router();
 
 const { uploadPhoto, getPhotos } = require('../controllers/photos');
 
