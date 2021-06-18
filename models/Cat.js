@@ -7,7 +7,6 @@ const CatSchema = new mongoose.Schema(
       required: [true, 'Please add a name'],
       unique: true,
       trim: true,
-      maxlength: [50, 'Name cannot be more than 50 characters'],
       enum: [
         'Kong',
         'E-Baek',
@@ -84,12 +83,6 @@ CatSchema.pre('save', function (next) {
   this.englishName;
   this.age = _getAge(this.dob);
   next();
-});
-
-CatSchema.virtual('photos', {
-  ref: 'Photo',
-  localField: '_id',
-  foreignField: 'cat'
 });
 
 module.exports = mongoose.model('Cat', CatSchema);
