@@ -71,7 +71,14 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
 // @route     Get /api/v1/photos
 // @access    Public
 exports.getPhotos = asyncHandler(async (req, res, next) => {
-  const photos = await Photo.find();
+  // clean up response data
+  res.results = res.results.map((photo) => {
+    return {
+      id: photo._id,
+      cat: photo.cat.name,
+      url: `${process.env.IMAGE_PATH}/${photo.name}`
+    };
+  });
 
   res.status(200).send({
     success: true,
