@@ -45,6 +45,10 @@ const CatSchema = new mongoose.Schema(
       enum: ['M', 'F'],
       required: [true, 'Please add gender']
     }
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
 );
 
@@ -71,6 +75,12 @@ const _getAge = (dob) => {
 CatSchema.pre('save', function (next) {
   this.age = _getAge(this.dob);
   next();
+});
+
+CatSchema.virtual('photos', {
+  ref: 'Photo',
+  localField: 'name',
+  foreignField: 'catName'
 });
 
 module.exports = mongoose.model('Cat', CatSchema);
