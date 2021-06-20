@@ -1,6 +1,7 @@
 /node_modules
 play.js
-/public
+/public/images
 /config/config.env
 /data
 seeder.js
+.DS_Store
