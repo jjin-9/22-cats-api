@@ -44,18 +44,7 @@ const CatSchema = new mongoose.Schema(
       type: String,
       enum: ['M', 'F'],
       required: [true, 'Please add gender']
-    },
-    image: {
-      type: String,
-      default: `${process.env.PROFILE_IMAGE_PATH.replace(
-        '{PORT}',
-        process.env.PORT
-      )}/image_not_found.png`
     }
-  },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
   }
 );
 
@@ -80,7 +69,6 @@ const _getAge = (dob) => {
 };
 
 CatSchema.pre('save', function (next) {
-  this.englishName;
   this.age = _getAge(this.dob);
   next();
 });
