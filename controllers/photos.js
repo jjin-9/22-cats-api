@@ -64,9 +64,7 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.getPhotos = asyncHandler(async (req, res, next) => {
   res.results.map((photo) => {
-    photo.url = `${process.env.IMAGE_PATH}/${photo.name}`;
-    photo.name = undefined;
-    photo['__v'] = undefined;
+    photo = cleanUpPhoto(photo);
     return photo;
   });
   res.status(200).send({
@@ -80,14 +78,19 @@ exports.getPhotos = asyncHandler(async (req, res, next) => {
 // @route     Get /api/v1/photos/:id
 // @access    Public
 exports.getPhoto = asyncHandler(async (req, res, next) => {
-  const photo = await Photo.findById(req.params.id);
+  let photo = await Photo.findById(req.params.id);
 
-  photo.url = `${process.env.IMAGE_PATH}/${photo.name}`;
-  photo.name = undefined;
-  photo['__v'] = undefined;
+  photo = cleanUpPhoto(photo);
 
   res.status(200).send({
     success: true,
     data: photo
   });
 });
+
+function cleanUpPhoto(photo) {
+  photo.url = `${process.env.IMAGE_PATH}/${photo.name}`;
+  photo.name = undefined;
+  photo['__v'] = undefined;
+  return photo;
+}
