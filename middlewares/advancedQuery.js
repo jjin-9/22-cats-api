@@ -1,4 +1,4 @@
-const advancedQuery = (model, populate) => async (req, res, next) => {
+const advancedQuery = (model, populate, sort) => async (req, res, next) => {
   let query = { ...req.query };
 
   ['select', 'sort', 'page', 'limit'].forEach((param) => delete query[param]);
@@ -11,10 +11,9 @@ const advancedQuery = (model, populate) => async (req, res, next) => {
   query = model.find(JSON.parse(stringifiedQuery));
 
   // Select fields
-  // if (req.query.select) {
-  //   const fields = req.query.select.split(',').join(' ');
-  //   query = query.select(fields);
-  // }
+  if (sort) {
+    query = query.select(sort);
+  }
 
   // Sort
   if (req.query.sort) {

@@ -13,7 +13,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(advancedQuery(Cat, 'photos'), getCats)
+  .get(advancedQuery(Cat, 'photos', 'name gender dob'), getCats)
   .post(protect, authorize('admin'), createCat);
 
 router.route('/:id').get(getCat);
