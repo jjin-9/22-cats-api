@@ -1,7 +1,5 @@
 const path = require('path');
-const { findByIdAndUpdate } = require('../models/Cat');
 
-const Cat = require('../models/Cat');
 const Photo = require('../models/Photo');
 
 const asyncHandler = require('../utils/asyncHandler');
