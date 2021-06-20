@@ -23,7 +23,7 @@ const advancedQuery = (model, populate, select) => async (req, res, next) => {
 
   // Pagination
   const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 22;
+  const limit = parseInt(req.query.limit, 10) || 100;
   const skip = (page - 1) * limit;
 
   query = query.skip(skip).limit(limit);
