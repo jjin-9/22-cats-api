@@ -12,7 +12,7 @@ The API provides
 - photo upload for the cats 
 - access protection to some of the routes against not permissioned users (e.g., photo upload)
 
-**For more information, visit:**  http://www.22-cats.com
+**For more information, visit:**  https://www.22-cats.com
 
 
 
