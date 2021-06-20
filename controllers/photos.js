@@ -75,3 +75,19 @@ exports.getPhotos = asyncHandler(async (req, res, next) => {
     data: res.results
   });
 });
+
+// @desc      Get Photo By Id
+// @route     Get /api/v1/photos/:id
+// @access    Public
+exports.getPhoto = asyncHandler(async (req, res, next) => {
+  const photo = await Photo.findById(req.params.id);
+
+  photo.url = `${process.env.IMAGE_PATH}/${photo.name}`;
+  photo.name = undefined;
+  photo['__v'] = undefined;
+
+  res.status(200).send({
+    success: true,
+    data: photo
+  });
+});
